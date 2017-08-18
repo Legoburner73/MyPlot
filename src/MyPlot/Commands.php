@@ -10,6 +10,7 @@ use MyPlot\subcommand\HomeSubCommand;
 use MyPlot\subcommand\InfoSubCommand;
 use MyPlot\subcommand\ListSubCommand;
 use MyPlot\subcommand\ResetSubCommand;
+use MyPlot\subcommand\ShareSubCommand;
 use pocketmine\command\PluginCommand;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;
@@ -45,7 +46,8 @@ class Commands extends PluginCommand
         $this->loadSubCommand(new ResetSubCommand($plugin));
         $this->loadSubCommand(new BiomeSubCommand($plugin));
         $this->loadSubCommand(new HomeSubCommand($plugin));
-        $this->loadSubCommand(new NameSubCommand($plugin));
+		$this->loadSubCommand(new NameSubCommand($plugin));
+		$this->loadSubCommand(new ShareSubCommand($plugin));
     }
 
     private function loadSubCommand(Subcommand $command) {

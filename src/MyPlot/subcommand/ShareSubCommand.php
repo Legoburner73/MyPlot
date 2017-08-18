@@ -28,7 +28,7 @@ class ShareSubCommand extends SubCommand
 	}
 
 	public function canUse(CommandSender $sender) {
-		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.reset");
+		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.share");
 	}
 
 	public  function execute(CommandSender $sender, array $args)
