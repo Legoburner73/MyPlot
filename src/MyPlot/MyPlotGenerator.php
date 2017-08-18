@@ -85,11 +85,11 @@ class MyPlotGenerator extends Generator
         }
     }
 
-    public function getName() {
+    public function getName(): String {
         return "myplot";
     }
 
-    public function getSettings() {
+    public function getSettings(): Array {
         return $this->settings;
     }
 
@@ -97,14 +97,10 @@ class MyPlotGenerator extends Generator
         $this->level = $level;
     }
 
-    public function generateChunk($chunkX, $chunkZ) {
+    public function generateChunk(int $chunkX, int $chunkZ) {
         $shape = $this->getShape($chunkX << 4, $chunkZ << 4);
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         $chunk->setGenerated();
-        $c = Biome::getBiome(1)->getColor();
-        $R = $c >> 16;
-        $G = ($c >> 8) & 0xff;
-        $B = $c & 0xff;
 
         $bottomBlockId = $this->bottomBlock->getId();
         $bottomBlockMeta = $this->bottomBlock->getDamage();
@@ -121,7 +117,6 @@ class MyPlotGenerator extends Generator
         for ($Z = 0; $Z < 16; ++$Z) {
             for ($X = 0; $X < 16; ++$X) {
                 $chunk->setBiomeId($X, $Z, 1);
-                $chunk->setBiomeColor($X, $Z, $R, $G, $B);
 
                 $chunk->setBlock($X, 0, $Z, $bottomBlockId, $bottomBlockMeta);
                 for ($y = 1; $y < $groundHeight; ++$y) {
@@ -197,9 +192,9 @@ class MyPlotGenerator extends Generator
         return $shape;
     }
 
-    public function populateChunk($chunkX, $chunkZ) {}
+    public function populateChunk(int $chunkX, int $chunkZ) {}
 
-    public function getSpawn() {
+    public function getSpawn(): Vector3 {
         return new Vector3(0, $this->groundHeight, 0);
     }
 }
