@@ -9,6 +9,7 @@ use MyPlot\subcommand\GenerateSubCommand;
 use MyPlot\subcommand\HomeSubCommand;
 use MyPlot\subcommand\InfoSubCommand;
 use MyPlot\subcommand\ListSubCommand;
+use MyPlot\SubCommand\LoadPlotSubCommand;
 use MyPlot\subcommand\ResetSubCommand;
 use MyPlot\subcommand\ShareSubCommand;
 use pocketmine\command\PluginCommand;
@@ -48,6 +49,7 @@ class Commands extends PluginCommand
         $this->loadSubCommand(new HomeSubCommand($plugin));
 		$this->loadSubCommand(new NameSubCommand($plugin));
 		$this->loadSubCommand(new ShareSubCommand($plugin));
+		$this->loadSubCommand(new LoadPlotSubCommand($plugin));
     }
 
     private function loadSubCommand(Subcommand $command) {

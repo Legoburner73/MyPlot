@@ -3,37 +3,38 @@
  * Created by PhpStorm.
  * User: funtimes
  * Date: 8/18/17
- * Time: 1:40 PM
+ * Time: 6:15 PM
  */
 
-namespace MyPlot\subcommand;
+namespace MyPlot\SubCommand;
 
+use pocketmine\utils\TextFormat;
 use pocketmine\command\CommandSender;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
-use pocketmine\utils\TextFormat;
 
-class ShareSubCommand extends SubCommand
+class LoadPlotSubCommand extends SubCommand
 {
 	public function getName()
 	{
-		return "share";
+		return "loadplot";
 	}
 
 	public function getDescription()
 	{
-		return "Allows you to share your plot online";
+		return "Allows you to load a plot from the online repository";
 	}
 
 	public function getAliases() {
-		return ["shr"];
+		return ["ld"];
 	}
 
 	public function canUse(CommandSender $sender) {
-		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.share");
+		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.loadplot");
 	}
 
-	public  function execute(CommandSender $sender, array $args) {
+	public  function execute(CommandSender $sender, array $args)
+	{
 
 		$player = $sender->getServer()->getPlayer($sender->getName());
 		$plot = $this->getPlugin()->getPlotByPosition($player->getPosition());
@@ -47,6 +48,7 @@ class ShareSubCommand extends SubCommand
 			$sender->sendMessage(TextFormat::RED . "You are not the owner of this plot");
 			return true;
 		}
+
 
 		$blockPositions = [];
 
@@ -66,9 +68,7 @@ class ShareSubCommand extends SubCommand
 			}
 		}
 
-		$date = time();
-
-		file_put_contents("$plot->X$plot->Z" . time() . ".json.gz", gzdeflate(json_encode($blockPositions), 8, ZLIB_ENCODING_GZIP));
+		file_put_contents("blocks.json.gz", gzdeflate(json_encode($blockPositions), 8, ZLIB_ENCODING_GZIP));
 
 		return true;
 	}

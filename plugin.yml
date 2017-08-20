@@ -54,6 +54,9 @@ permissions:
       myplot.command.share:
         description: Gives the share command
         default: true
+      myplot.command.loadplot:
+        description: Gives the load command
+        default: true
   myplot.admin:
     description: Grant administrator powers
     default: op
