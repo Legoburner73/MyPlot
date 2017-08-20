@@ -15,9 +15,9 @@ use pocketmine\command\CommandSender;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 
-class LoadPlotSubCommand extends SubCommand {
+class LoadSubCommand extends SubCommand {
 	public function getName() {
-		return "loadplot";
+		return "load";
 	}
 
 	public function getDescription() {
@@ -29,7 +29,7 @@ class LoadPlotSubCommand extends SubCommand {
 	}
 
 	public function canUse(CommandSender $sender) {
-		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.loadplot");
+		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.load");
 	}
 
 	public function execute(CommandSender $sender, array $args) {
@@ -41,7 +41,7 @@ class LoadPlotSubCommand extends SubCommand {
 			return true;
 		}
 
-		if ($plot->owner !== $sender->getName() and !$sender->hasPermission("myplot.admin.loadplot")) {
+		if ($plot->owner !== $sender->getName() and !$sender->hasPermission("myplot.admin.load")) {
 			$sender->sendMessage(TextFormat::RED . "You are not the owner of this plot");
 			return true;
 		}
