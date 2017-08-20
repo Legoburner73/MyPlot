@@ -9,10 +9,8 @@
 namespace MyPlot\subcommand;
 
 use MyPlot\task\LoadPlotTask;
-use pocketmine\block\Block;
 use pocketmine\utils\TextFormat;
 use pocketmine\command\CommandSender;
-use pocketmine\math\Vector3;
 use pocketmine\Player;
 
 class LoadSubCommand extends SubCommand {

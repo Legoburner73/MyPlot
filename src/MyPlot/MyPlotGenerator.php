@@ -6,7 +6,6 @@ use pocketmine\level\generator\Generator;
 use pocketmine\level\ChunkManager;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
-use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\Level;
 
 class MyPlotGenerator extends Generator
@@ -89,7 +88,7 @@ class MyPlotGenerator extends Generator
         return "myplot";
     }
 
-    public function getSettings(): Array {
+    public function getSettings(): array {
         return $this->settings;
     }
 

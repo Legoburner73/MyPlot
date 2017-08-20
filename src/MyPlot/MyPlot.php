@@ -4,22 +4,13 @@ namespace MyPlot;
 use MyPlot\provider\EconomySProvider;
 use MyPlot\provider\PocketMoneyProvider;
 use MyPlot\task\ClearPlotTask;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\block\BlockUpdateEvent;
-use pocketmine\event\level\LevelLoadEvent;
-use pocketmine\event\level\LevelUnloadEvent;
 use pocketmine\event\Listener;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\Position;
 use pocketmine\plugin\PluginBase;
 use pocketmine\level\generator\Generator;
-use pocketmine\event\EventPriority;
-use pocketmine\plugin\MethodEventExecutor;
 use pocketmine\Player;
 use MyPlot\provider\DataProvider;
-use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use pocketmine\level\Level;
 use MyPlot\provider\SQLiteDataProvider;
@@ -316,11 +307,6 @@ class MyPlot extends PluginBase implements Listener
                 if (!in_array($index, $chunkIndexes)) {
                     $chunkIndexes[] = $index;
                 }
-                $color = $biome->getColor();
-                $R = $color >> 16;
-                $G = ($color >> 8) & 0xff;
-                $B = $color & 0xff;
-                $level->setBiomeColor($x, $z, $R, $G, $B);
             }
         }
 

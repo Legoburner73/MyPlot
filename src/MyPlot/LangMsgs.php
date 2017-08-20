@@ -59,7 +59,7 @@ class LangMsgs
     {       
         $defaultRes = $this->plugin->getConfigValue("language");
         
-        foreach($this->lngList as $resName)
+        foreach($this->lnglst as $resName)
         {
             if(strtolower($defaultRes) == $resName)
             {

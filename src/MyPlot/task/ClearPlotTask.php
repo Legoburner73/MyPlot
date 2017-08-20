@@ -12,7 +12,7 @@ use pocketmine\utils\TextFormat;
 class ClearPlotTask extends PluginTask
 {
     private $level, $height, $bottomBlock, $plotFillBlock, $plotFloorBlock,
-            $plotBeginPos, $xMax, $zMax, $maxBlocksPerTick, $issuer;
+            $plotBeginPos, $xMax, $zMax, $maxBlocksPerTick, $issuer, $pos;
 
     public function __construct(MyPlot $plugin, Plot $plot, Player $issuer = null, $maxBlocksPerTick = 256) {
         parent::__construct($plugin);
