@@ -41,7 +41,7 @@ Command | Usage | Permissions |
 /p home [number]|Teleport to one of your plots|myplot.command.home
 /p name \<name\>|Change the name of your plot|myplot.command.name
 /p share [plot name]|Share your plot, with a name|myplot.command.share
-/p loadplot \<player name\> \<plot id\>|Load a shared plot, using the player's name, and their plot id/name|myplot.command.loadplot
+/p load \<player name\> \<plot id\>|Load a shared plot, using the player's name, and their plot id/name|myplot.command.loadplot
 
 
 **Plugin created by Wiez and Exxarion**
