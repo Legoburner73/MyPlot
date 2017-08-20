@@ -35,6 +35,10 @@ class LoadPlotTask extends PluginTask {
 
 	private $loadedPlotData;
 
+	private $plotPosition;
+	private $height = 256;
+	private $plotSize;
+
 	public function __construct(MyPlot $owner, Player $player, string $filePath, Plot $plot) {
 		$this->player = $player;
 		$this->plugin = $owner;
@@ -46,22 +50,26 @@ class LoadPlotTask extends PluginTask {
 		$this->loadedPlotData = json_decode(gzread($gzfile, 65536 * 1024), true);
 		gzclose($gzfile);
 
+		$this->plotSize = $this->plugin->getLevelSettings($this->plot->levelName)->plotSize;
+		$this->height = 256; // hard-coding this should be fine, for now, and for performance
+
+		$this->plotPosition = $this->plugin->getPlotPosition($this->plot);
+
+		if ($this->plotSize > count($this->loadedPlotData)) {
+			$this->plotSize = count($this->loadedPlotData);
+		}
+
 		parent::__construct($owner);
 	}
 
 	public function onRun(int $currentTick) {
 
-		$plotSize = $this->plugin->getLevelSettings($this->plot->levelName)->plotSize;
-		$height = 256; // hard-coding this should be fine, for now, and for performance
-
-		$plotPosition = $this->plugin->getPlotPosition($this->plot);
-
-
-		for ($x = $this->position->x; $x < $plotSize; $x++) {
+		for ($x = $this->position->x; $x < $this->plotSize; $x++) {
 			$this->position->x = $x;
-			for ($z = $this->position->z; $z < $plotSize; $z++) {
-				for ($y = 0; $y < $height; $y++) {
-					$adjusted_position = new Vector3($x + $plotPosition->x, $y, $z + $plotPosition->z);
+			for ($z = $this->position->z; $z < $this->plotSize; $z++) {
+
+				for ($y = 0; $y < $this->height; $y++) {
+					$adjusted_position = new Vector3($x + $this->plotPosition->x, $y, $z + $this->plotPosition->z);
 					$this->player->getLevel()->setBlock($adjusted_position, Block::get($this->loadedPlotData[$x][$z][$y]));
 				}
 				$this->position->z++;
