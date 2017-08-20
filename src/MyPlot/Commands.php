@@ -9,7 +9,7 @@ use MyPlot\subcommand\GenerateSubCommand;
 use MyPlot\subcommand\HomeSubCommand;
 use MyPlot\subcommand\InfoSubCommand;
 use MyPlot\subcommand\ListSubCommand;
-use MyPlot\SubCommand\LoadPlotSubCommand;
+use MyPlot\subcommand\LoadPlotSubCommand;
 use MyPlot\subcommand\ResetSubCommand;
 use MyPlot\subcommand\ShareSubCommand;
 use pocketmine\command\PluginCommand;

@@ -61,6 +61,9 @@ permissions:
     description: Grant administrator powers
     default: op
     children:
+      myplot.admin.loadplot:
+        descrpition: Allow loading a plot onto any plot
+        default: op
       myplot.admin.clear:
         description: Allow clear command on every plot
         default: op

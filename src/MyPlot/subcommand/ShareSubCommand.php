@@ -8,20 +8,18 @@
 
 namespace MyPlot\subcommand;
 
+use MyPlot\task\SharePlotTask;
 use pocketmine\command\CommandSender;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\utils\TextFormat;
 
-class ShareSubCommand extends SubCommand
-{
-	public function getName()
-	{
+class ShareSubCommand extends SubCommand {
+	public function getName() {
 		return "share";
 	}
 
-	public function getDescription()
-	{
+	public function getDescription() {
 		return "Allows you to share your plot online";
 	}
 
@@ -33,7 +31,7 @@ class ShareSubCommand extends SubCommand
 		return ($sender instanceof Player) and $sender->hasPermission("myplot.command.share");
 	}
 
-	public  function execute(CommandSender $sender, array $args) {
+	public function execute(CommandSender $sender, array $args) {
 
 		$player = $sender->getServer()->getPlayer($sender->getName());
 		$plot = $this->getPlugin()->getPlotByPosition($player->getPosition());
@@ -48,33 +46,15 @@ class ShareSubCommand extends SubCommand
 			return true;
 		}
 
-		$blockPositions = [];
+		$task = new SharePlotTask($this->getPlugin(), $player, $plot, $args);
+		$this->getPlugin()->getServer()->getScheduler()->scheduleRepeatingTask($task, 0);
 
-		$plotSize = $this->getPlugin()->getLevelSettings($plot->levelName)->plotSize;
-		$height = 256; // hard-coding this should be fine, for now, and for performance
-
-		$plotPosition = $this->getPlugin()->getPlotPosition($plot);
-
-		for ($x = 0; $x < $plotSize; $x++) {
-			for ($z = 0; $z < $plotSize; $z++) {
-				for ($y = 0; $y < $height; $y++) {
-
-					$position = new Vector3($x + $plotPosition->x, $y, $z + $plotPosition->z);
-					$blockPositions[$position->x][$position->z][$position->y] = $this->getPlugin()->getServer()->getLevelByName($plot->levelName)->getBlock($position)->getName();
-
-				}
-			}
-		}
-
-		$date = time();
-
-		file_put_contents("$plot->X$plot->Z" . time() . ".json.gz", gzdeflate(json_encode($blockPositions), 8, ZLIB_ENCODING_GZIP));
+		$player->sendMessage("Sharing plot...");
 
 		return true;
 	}
 
-	public  function getUsage()
-	{
-		return "";
+	public  function getUsage() {
+		return "[name]";
 	}
 }
